@@ -12,24 +12,30 @@ public class LegIK : MonoBehaviour
     [SerializeField] private AnimationCurve speedCurve;
     [SerializeField] private AnimationCurve heightCurve;
 
-    [SerializeField] private float animateLegHeight = 0.3f;
+    private float tipMaxHeight = 0.3f;
 
-    [SerializeField] private float tipAnimationTime = 0.2f;
-    [SerializeField] private float tipAnimationFrameTime = 1 / 60.0f;
+    private float tipAnimationTime = 0.15f;
+    private float tipAnimationFrameTime = 1 / 60.0f;
 
-    [SerializeField] private float ikOffset = 1.0f;
-    [SerializeField] private float tipMoveDist = 0.5f;
-    [SerializeField] private float maxRayDist = 5.0f;
+    private float ikOffset = 1.0f;
+    private float tipMoveDist = 0.5f;
+    private float maxRayDist = 5.0f;
 
     private Vector3 tipPos;
     private Vector3 raycastTipPos;
 
     private bool animating = false;
 
-    void Start()
+    void Awake()
     {
-        transform.parent = bodyTransform.transform;
-        rayOrigin.parent = bodyTransform.transform;
+        transform.parent = bodyTransform;
+        rayOrigin.parent = bodyTransform;
+        tipPos = ikTarget.transform.position;
+    }
+
+    private void Start()
+    {
+        UpdateIKTargetTransform();
     }
 
     void Update()
@@ -75,7 +81,7 @@ public class LegIK : MonoBehaviour
             float tipAcceleration = (raycastTipPos - startingTipPos).magnitude / tipDirVec.magnitude;
 
             tipPos = (startingTipPos + tipDirVec * tipAcceleration * animTime); // Forward dir
-            tipPos += (up * heightCurve.Evaluate(animTime) * animateLegHeight); // Upward dir
+            tipPos += (up * heightCurve.Evaluate(animTime) * tipMaxHeight); // Upward dir
 
             UpdateIKTargetTransform();
 
