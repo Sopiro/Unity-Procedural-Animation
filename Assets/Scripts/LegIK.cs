@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Animations.Rigging;
 
 public class LegIK : MonoBehaviour
 {
+    private LegController legController;
     [SerializeField] private Transform bodyTransform;
     [SerializeField] private Transform rayOrigin;
     public GameObject ikTarget;
@@ -14,23 +14,28 @@ public class LegIK : MonoBehaviour
 
     private float tipMaxHeight = 0.3f;
 
-    private float tipAnimationTime = 0.15f;
+    private float tipAnimationTime = 0.1f;
     private float tipAnimationFrameTime = 1 / 60.0f;
 
-    private float ikOffset = 1.0f;
+    public float IkOffset { get; } = 1.0f;
     private float tipMoveDist = 0.5f;
     private float maxRayDist = 5.0f;
 
-    private Vector3 tipPos;
+    public Vector3 TipPos { get; private set; }
     private Vector3 raycastTipPos;
+    public Vector3 UpDir { get; private set; }
 
-    private bool animating = false;
+    public bool Animating { get; private set; } = false;
+    public bool Movable { get; set; } = false;
+    public float TipDistance { get; private set; }
 
-    void Awake()
+    private void Awake()
     {
+        legController = GetComponentInParent<LegController>();
+
         transform.parent = bodyTransform;
         rayOrigin.parent = bodyTransform;
-        tipPos = ikTarget.transform.position;
+        TipPos = ikTarget.transform.position;
     }
 
     private void Start()
@@ -38,7 +43,7 @@ public class LegIK : MonoBehaviour
         UpdateIKTargetTransform();
     }
 
-    void Update()
+    private void Update()
     {
         RaycastHit hit;
 
@@ -48,14 +53,16 @@ public class LegIK : MonoBehaviour
         }
         else
         {
-            tipPos = raycastTipPos = rayOrigin.position + bodyTransform.up.normalized * -1 * maxRayDist;
+            TipPos = raycastTipPos = rayOrigin.position + bodyTransform.up.normalized * -1 * maxRayDist;
 
             UpdateIKTargetTransform();
 
             return;
         }
 
-        if ((raycastTipPos - tipPos).magnitude > tipMoveDist && !animating)
+        TipDistance = (raycastTipPos - TipPos).magnitude;
+
+        if (!Animating && (TipDistance > tipMoveDist && Movable))
         {
             StartCoroutine(AnimateLegMove());
         }
@@ -63,16 +70,16 @@ public class LegIK : MonoBehaviour
 
     private IEnumerator AnimateLegMove()
     {
-        animating = true;
+        Animating = true;
 
         float timer = 0.0f;
         float animTime;
 
-        Vector3 startingTipPos = tipPos;
-        Vector3 tipDirVec = (raycastTipPos - tipPos);
+        Vector3 startingTipPos = TipPos;
+        Vector3 tipDirVec = (raycastTipPos - TipPos);
 
         Vector3 right = Vector3.Cross(tipDirVec.normalized, bodyTransform.up).normalized;
-        Vector3 up = Vector3.Cross(right, tipDirVec.normalized);
+        UpDir = Vector3.Cross(right, tipDirVec.normalized);
 
         while (timer < tipAnimationTime + tipAnimationFrameTime)
         {
@@ -80,8 +87,8 @@ public class LegIK : MonoBehaviour
 
             float tipAcceleration = (raycastTipPos - startingTipPos).magnitude / tipDirVec.magnitude;
 
-            tipPos = (startingTipPos + tipDirVec * tipAcceleration * animTime); // Forward dir
-            tipPos += (up * heightCurve.Evaluate(animTime) * tipMaxHeight); // Upward dir
+            TipPos = startingTipPos + tipDirVec * tipAcceleration * animTime; // Forward dir
+            TipPos += UpDir * heightCurve.Evaluate(animTime) * tipMaxHeight; // Upward dir
 
             UpdateIKTargetTransform();
 
@@ -90,13 +97,14 @@ public class LegIK : MonoBehaviour
             yield return new WaitForSeconds(tipAnimationFrameTime);
         }
 
-        animating = false;
+        Animating = false;
+        legController.UpdateBodyTransform();
     }
 
     private void UpdateIKTargetTransform()
     {
-        ikTarget.transform.position = tipPos + bodyTransform.up.normalized * ikOffset;
-        ikTarget.transform.rotation = Quaternion.LookRotation(tipPos - ikTarget.transform.position) * Quaternion.Euler(90, 0, 0);
+        ikTarget.transform.position = TipPos + bodyTransform.up.normalized * IkOffset;
+        ikTarget.transform.rotation = Quaternion.LookRotation(TipPos - ikTarget.transform.position) * Quaternion.Euler(90, 0, 0);
     }
 
     private void OnDrawGizmos()
@@ -105,9 +113,9 @@ public class LegIK : MonoBehaviour
         Gizmos.DrawSphere(raycastTipPos, 0.1f);
 
         Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(tipPos, 0.1f);
+        Gizmos.DrawSphere(TipPos, 0.1f);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(tipPos, raycastTipPos);
+        Gizmos.DrawLine(TipPos, raycastTipPos);
     }
 }
