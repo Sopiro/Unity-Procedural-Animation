@@ -11,14 +11,15 @@ public class LegController : MonoBehaviour
 
     private bool readyChangeOrder = false;
     private bool order = true;
-    private float bodyHeightBase = 1.2f;
+    private float bodyHeightBase = 1.3f;
 
     private Vector3 bodyPos;
     private Vector3 bodyUp;
+    private Vector3 bodyForward;
 
     private void Start()
     {
-        StartCoroutine(UpdateBodyTransform());
+        StartCoroutine(AdjustBodyTransform());
     }
 
     private void Update()
@@ -55,7 +56,7 @@ public class LegController : MonoBehaviour
         }
     }
 
-    public IEnumerator UpdateBodyTransform()
+    public IEnumerator AdjustBodyTransform()
     {
         while (true)
         {
@@ -64,21 +65,17 @@ public class LegController : MonoBehaviour
             foreach (LegIK leg in legs)
             {
                 tipCenter += leg.TipPos;
+                bodyUp += leg.UpDir;
             }
 
             tipCenter /= legs.Length;
+            bodyUp.Normalize();
 
             bodyPos = tipCenter + bodyTransform.up * bodyHeightBase;
+            bodyTransform.position = Vector3.Lerp(bodyTransform.position, bodyPos, 1 / 30.0f);
 
-            bodyTransform.position = Vector3.Lerp(bodyTransform.position, bodyPos, 1 / 20.0f);
-
-            RaycastHit hit;
-            if (Physics.Raycast(bodyTransform.position, bodyTransform.up * -1, out hit, 5.0f))
-            {
-                bodyUp = hit.normal;
-            }
-
-            bodyTransform.up = Vector3.Slerp(bodyTransform.up, bodyUp, 1 / 20.0f);
+            bodyForward = Vector3.Cross(bodyUp, Vector3.Cross(bodyTransform.forward, bodyUp));
+            bodyTransform.forward = Vector3.Slerp(bodyTransform.forward, bodyForward, 1 / 10.0f);
 
             yield return new WaitForFixedUpdate();
         }

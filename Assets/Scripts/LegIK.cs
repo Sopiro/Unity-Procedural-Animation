@@ -14,13 +14,13 @@ public class LegIK : MonoBehaviour
 
     private float tipMaxHeight = 0.2f;
 
-    private float tipAnimationTime = 0.15f;
+    private float tipAnimationTime = 0.17f;
     private float tipAnimationFrameTime = 1 / 60.0f;
 
     public float IkOffset { get; } = 1.0f;
-    private float tipMoveDist = 0.6f;
-    private float maxRayDist = 5.0f;
-    private float tipPassOver = 0.3f;
+    private float tipMoveDist = 0.55f;
+    private float maxRayDist = 7.0f;
+    private float tipPassOver = 0.35f;
 
     public Vector3 TipPos { get; private set; }
     public Vector3 raycastTipPos { get; private set; }
