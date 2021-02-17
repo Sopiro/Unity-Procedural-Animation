@@ -12,17 +12,18 @@ public class LegIK : MonoBehaviour
     [SerializeField] private AnimationCurve speedCurve;
     [SerializeField] private AnimationCurve heightCurve;
 
-    private float tipMaxHeight = 0.3f;
+    private float tipMaxHeight = 0.2f;
 
-    private float tipAnimationTime = 0.1f;
+    private float tipAnimationTime = 0.15f;
     private float tipAnimationFrameTime = 1 / 60.0f;
 
     public float IkOffset { get; } = 1.0f;
-    private float tipMoveDist = 0.5f;
+    private float tipMoveDist = 0.6f;
     private float maxRayDist = 5.0f;
+    private float tipPassOver = 0.3f;
 
     public Vector3 TipPos { get; private set; }
-    private Vector3 raycastTipPos;
+    public Vector3 raycastTipPos { get; private set; }
     public Vector3 UpDir { get; private set; }
 
     public bool Animating { get; private set; } = false;
@@ -77,6 +78,7 @@ public class LegIK : MonoBehaviour
 
         Vector3 startingTipPos = TipPos;
         Vector3 tipDirVec = (raycastTipPos - TipPos);
+        tipDirVec += tipDirVec.normalized * tipPassOver;
 
         Vector3 right = Vector3.Cross(tipDirVec.normalized, bodyTransform.up).normalized;
         UpDir = Vector3.Cross(right, tipDirVec.normalized);
@@ -86,6 +88,8 @@ public class LegIK : MonoBehaviour
             animTime = speedCurve.Evaluate(timer / tipAnimationTime);
 
             float tipAcceleration = (raycastTipPos - startingTipPos).magnitude / tipDirVec.magnitude;
+
+            if (tipAcceleration < 1) tipAcceleration = 1.0f;
 
             TipPos = startingTipPos + tipDirVec * tipAcceleration * animTime; // Forward dir
             TipPos += UpDir * heightCurve.Evaluate(animTime) * tipMaxHeight; // Upward dir
@@ -98,7 +102,6 @@ public class LegIK : MonoBehaviour
         }
 
         Animating = false;
-        legController.UpdateBodyTransform();
     }
 
     private void UpdateIKTargetTransform()
@@ -117,5 +120,8 @@ public class LegIK : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawLine(TipPos, raycastTipPos);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(ikTarget.transform.position, 0.1f);
     }
 }
