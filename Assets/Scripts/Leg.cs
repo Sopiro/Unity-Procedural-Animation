@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LegIK : MonoBehaviour
+public class Leg : MonoBehaviour
 {
     private LegController legController;
     [SerializeField] private Transform bodyTransform;
@@ -14,17 +14,17 @@ public class LegIK : MonoBehaviour
 
     private float tipMaxHeight = 0.2f;
 
-    private float tipAnimationTime = 0.17f;
+    private float tipAnimationTime = 0.2f;
     private float tipAnimationFrameTime = 1 / 60.0f;
 
     public float IkOffset { get; } = 1.0f;
-    private float tipMoveDist = 0.55f;
+    private float tipMoveDist = 0.5f;
     private float maxRayDist = 7.0f;
-    private float tipPassOver = 0.35f;
+    private float tipPassOver = 0.1f;
 
     public Vector3 TipPos { get; private set; }
     public Vector3 raycastTipPos { get; private set; }
-    public Vector3 UpDir { get; private set; }
+    public Vector3 UpDir { get; private set; } = Vector3.up;
 
     public bool Animating { get; private set; } = false;
     public bool Movable { get; set; } = false;
@@ -80,8 +80,8 @@ public class LegIK : MonoBehaviour
         Vector3 tipDirVec = (raycastTipPos - TipPos);
         tipDirVec += tipDirVec.normalized * tipPassOver;
 
-        Vector3 right = Vector3.Cross(tipDirVec.normalized, bodyTransform.up).normalized;
-        UpDir = Vector3.Cross(right, tipDirVec.normalized);
+        Vector3 right = Vector3.Cross(bodyTransform.up, tipDirVec.normalized).normalized;
+        UpDir = Vector3.Cross(tipDirVec.normalized, right);
 
         while (timer < tipAnimationTime + tipAnimationFrameTime)
         {
@@ -112,7 +112,7 @@ public class LegIK : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.green;
+        Gizmos.color = Color.magenta;
         Gizmos.DrawSphere(raycastTipPos, 0.1f);
 
         Gizmos.color = Color.blue;

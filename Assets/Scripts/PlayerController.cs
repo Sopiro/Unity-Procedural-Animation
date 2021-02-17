@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float MoveSpeed { get; } = 4.0f;
+    private float MoveSpeed { get; } = 5.0f;
     private float RotSpeed { get; } = 100.0f;
 
     void Start()
@@ -22,7 +22,13 @@ public class PlayerController : MonoBehaviour
 
         transform.Translate(ad, 0, 0);
 
-        if (Input.GetKey(KeyCode.Q)) transform.Rotate(0, -RotSpeed * Time.deltaTime, 0);
-        if (Input.GetKey(KeyCode.E)) transform.Rotate(0, RotSpeed * Time.deltaTime, 0);
+        if (Input.GetKey(KeyCode.Q))
+        {
+            transform.Rotate(0, -RotSpeed * Time.deltaTime, 0);
+        }
+        if (Input.GetKey(KeyCode.E))
+        {
+            transform.Rotate(0, RotSpeed * Time.deltaTime, 0);
+        }
     }
 }

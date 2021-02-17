@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class SphereGizmo : MonoBehaviour
 {
+    public static bool Enabled = true;
+
     public float size = 0.1f;
     public Color color = Color.red;
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = color;
-        Gizmos.DrawSphere(transform.position, size);
+        if (Enabled)
+        {
+            Gizmos.color = color;
+            Gizmos.DrawSphere(transform.position, size);
+        }
     }
 }
