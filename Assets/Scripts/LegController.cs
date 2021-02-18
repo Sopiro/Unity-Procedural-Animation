@@ -7,7 +7,7 @@ public class LegController : MonoBehaviour
     [SerializeField] private Transform bodyTransform;
     [SerializeField] private Leg[] legs;
 
-    private float maxTipWait = 0.8f;
+    private float maxTipWait = 0.7f;
 
     private bool readyChangeOrder = false;
     private bool order = true;
@@ -18,6 +18,8 @@ public class LegController : MonoBehaviour
     private Vector3 bodyForward;
     private Vector3 bodyRight;
     private Quaternion bodyRotation;
+
+    private float AdjustRatioPerTick = 1 / 10.0f;
 
     private void Start()
     {
@@ -58,7 +60,7 @@ public class LegController : MonoBehaviour
         }
     }
 
-    public IEnumerator AdjustBodyTransform()
+    private IEnumerator AdjustBodyTransform()
     {
         while (true)
         {
@@ -68,7 +70,7 @@ public class LegController : MonoBehaviour
             foreach (Leg leg in legs)
             {
                 tipCenter += leg.TipPos;
-                bodyUp += leg.UpDir;
+                bodyUp += leg.TipUpDir + leg.RaycastTipNormal;
             }
 
             RaycastHit hit;
@@ -81,13 +83,13 @@ public class LegController : MonoBehaviour
             bodyUp.Normalize();
 
             bodyPos = tipCenter + bodyUp * bodyHeightBase;
-            bodyTransform.position = Vector3.Lerp(bodyTransform.position, bodyPos, 1 / 10.0f);
+            bodyTransform.position = Vector3.Lerp(bodyTransform.position, bodyPos, AdjustRatioPerTick);
 
             bodyRight = Vector3.Cross(bodyUp, bodyTransform.forward);
             bodyForward = Vector3.Cross(bodyRight, bodyUp);
 
             bodyRotation = Quaternion.LookRotation(bodyForward, bodyUp);
-            bodyTransform.rotation = Quaternion.Slerp(bodyTransform.rotation, bodyRotation, 1 / 10.0f);
+            bodyTransform.rotation = Quaternion.Slerp(bodyTransform.rotation, bodyRotation, AdjustRatioPerTick);
 
             yield return new WaitForFixedUpdate();
         }

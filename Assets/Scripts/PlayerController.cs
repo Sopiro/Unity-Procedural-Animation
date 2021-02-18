@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float MoveSpeed { get; } = 5.0f;
-    private float RotSpeed { get; } = 100.0f;
+    private float MoveSpeed { get; } = 4.5f;
+    private float RotSpeed { get; } = 80.0f;
 
     void Start()
     {

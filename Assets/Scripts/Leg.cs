@@ -5,6 +5,7 @@ using UnityEngine;
 public class Leg : MonoBehaviour
 {
     private LegController legController;
+
     [SerializeField] private Transform bodyTransform;
     [SerializeField] private Transform rayOrigin;
     public GameObject ikTarget;
@@ -13,18 +14,18 @@ public class Leg : MonoBehaviour
     [SerializeField] private AnimationCurve heightCurve;
 
     private float tipMaxHeight = 0.2f;
-
-    private float tipAnimationTime = 0.2f;
+    private float tipAnimationTime = 0.15f;
     private float tipAnimationFrameTime = 1 / 60.0f;
 
-    public float IkOffset { get; } = 1.0f;
-    private float tipMoveDist = 0.5f;
+    private float ikOffset = 1.0f;
+    private float tipMoveDist = 0.55f;
     private float maxRayDist = 7.0f;
-    private float tipPassOver = 0.1f;
+    private float tipPassOver = 0.2f;
 
     public Vector3 TipPos { get; private set; }
-    public Vector3 raycastTipPos { get; private set; }
-    public Vector3 UpDir { get; private set; } = Vector3.up;
+    public Vector3 TipUpDir { get; private set; }
+    public Vector3 RaycastTipPos { get; private set; }
+    public Vector3 RaycastTipNormal { get; private set; }
 
     public bool Animating { get; private set; } = false;
     public bool Movable { get; set; } = false;
@@ -50,18 +51,19 @@ public class Leg : MonoBehaviour
 
         if (Physics.Raycast(rayOrigin.position, bodyTransform.up.normalized * -1, out hit, maxRayDist))
         {
-            raycastTipPos = hit.point;
+            RaycastTipPos = hit.point;
+            RaycastTipNormal = hit.normal;
         }
         else
         {
-            TipPos = raycastTipPos = rayOrigin.position + bodyTransform.up.normalized * -1 * maxRayDist;
+            TipPos = RaycastTipPos = rayOrigin.position + bodyTransform.up.normalized * -1 * maxRayDist;
 
             UpdateIKTargetTransform();
 
             return;
         }
 
-        TipDistance = (raycastTipPos - TipPos).magnitude;
+        TipDistance = (RaycastTipPos - TipPos).magnitude;
 
         if (!Animating && (TipDistance > tipMoveDist && Movable))
         {
@@ -77,22 +79,20 @@ public class Leg : MonoBehaviour
         float animTime;
 
         Vector3 startingTipPos = TipPos;
-        Vector3 tipDirVec = (raycastTipPos - TipPos);
+        Vector3 tipDirVec = (RaycastTipPos - TipPos);
         tipDirVec += tipDirVec.normalized * tipPassOver;
 
         Vector3 right = Vector3.Cross(bodyTransform.up, tipDirVec.normalized).normalized;
-        UpDir = Vector3.Cross(tipDirVec.normalized, right);
+        TipUpDir = Vector3.Cross(tipDirVec.normalized, right);
 
         while (timer < tipAnimationTime + tipAnimationFrameTime)
         {
             animTime = speedCurve.Evaluate(timer / tipAnimationTime);
 
-            float tipAcceleration = (raycastTipPos - startingTipPos).magnitude / tipDirVec.magnitude;
-
-            if (tipAcceleration < 1) tipAcceleration = 1.0f;
+            float tipAcceleration = Mathf.Max((RaycastTipPos - startingTipPos).magnitude / tipDirVec.magnitude, 1.0f);
 
             TipPos = startingTipPos + tipDirVec * tipAcceleration * animTime; // Forward dir
-            TipPos += UpDir * heightCurve.Evaluate(animTime) * tipMaxHeight; // Upward dir
+            TipPos += TipUpDir * heightCurve.Evaluate(animTime) * tipMaxHeight; // Upward dir
 
             UpdateIKTargetTransform();
 
@@ -106,20 +106,20 @@ public class Leg : MonoBehaviour
 
     private void UpdateIKTargetTransform()
     {
-        ikTarget.transform.position = TipPos + bodyTransform.up.normalized * IkOffset;
+        ikTarget.transform.position = TipPos + bodyTransform.up.normalized * ikOffset;
         ikTarget.transform.rotation = Quaternion.LookRotation(TipPos - ikTarget.transform.position) * Quaternion.Euler(90, 0, 0);
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.magenta;
-        Gizmos.DrawSphere(raycastTipPos, 0.1f);
+        Gizmos.DrawSphere(RaycastTipPos, 0.1f);
 
         Gizmos.color = Color.blue;
         Gizmos.DrawSphere(TipPos, 0.1f);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(TipPos, raycastTipPos);
+        Gizmos.DrawLine(TipPos, RaycastTipPos);
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(ikTarget.transform.position, 0.1f);
