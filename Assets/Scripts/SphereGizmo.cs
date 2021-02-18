@@ -9,6 +9,7 @@ public class SphereGizmo : MonoBehaviour
     public float size = 0.1f;
     public Color color = Color.red;
 
+    // Draw sphere gizmo in scene view
     private void OnDrawGizmos()
     {
         if (Enabled)

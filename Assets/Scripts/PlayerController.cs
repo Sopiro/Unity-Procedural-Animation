@@ -4,22 +4,20 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    // Player movement script
+
     private float MoveSpeed { get; } = 4.5f;
     private float RotSpeed { get; } = 80.0f;
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
-        float ws = Input.GetAxis("Vertical") * MoveSpeed * Time.deltaTime;
+        // Apply keyboard control
+        // This loop will compete with AdjustBodyTransform() in LegController script
 
+        float ws = Input.GetAxis("Vertical") * MoveSpeed * Time.deltaTime;
         transform.Translate(0, 0, ws);
 
         float ad = Input.GetAxis("Horizontal") * MoveSpeed * Time.deltaTime;
-
         transform.Translate(ad, 0, 0);
 
         if (Input.GetKey(KeyCode.Q))

@@ -9,7 +9,7 @@ public class LegController : MonoBehaviour
 
     private float maxTipWait = 0.7f;
 
-    private bool readyChangeOrder = false;
+    private bool readySwitchOrder = false;
     private bool order = true;
     private float bodyHeightBase = 1.3f;
 
@@ -23,6 +23,7 @@ public class LegController : MonoBehaviour
 
     private void Start()
     {
+        // Start coroutine to adjust body transform
         StartCoroutine(AdjustBodyTransform());
     }
 
@@ -31,6 +32,7 @@ public class LegController : MonoBehaviour
         if (legs.Length < 2)
             return;
 
+        // If tip is not in current order but it's too far from target position, Switch the order
         for (int i = 0; i < legs.Length; i++)
         {
             if (legs[i].TipDistance > maxTipWait)
@@ -40,6 +42,7 @@ public class LegController : MonoBehaviour
             }
         }
 
+        // Ordering steps
         foreach (Leg leg in legs)
         {
             leg.Movable = order;
@@ -48,15 +51,16 @@ public class LegController : MonoBehaviour
 
         int index = order ? 0 : 1;
 
-        if (readyChangeOrder && !legs[index].Animating)
+        // If the opposite foot step completes, switch the order to make a new step
+        if (readySwitchOrder && !legs[index].Animating)
         {
             order = !order;
-            readyChangeOrder = false;
+            readySwitchOrder = false;
         }
 
-        if (!readyChangeOrder && legs[index].Animating)
+        if (!readySwitchOrder && legs[index].Animating)
         {
-            readyChangeOrder = true;
+            readySwitchOrder = true;
         }
     }
 
@@ -67,6 +71,7 @@ public class LegController : MonoBehaviour
             Vector3 tipCenter = Vector3.zero;
             bodyUp = Vector3.zero;
 
+            // Collect leg information to calculate body transform
             foreach (Leg leg in legs)
             {
                 tipCenter += leg.TipPos;
@@ -82,12 +87,15 @@ public class LegController : MonoBehaviour
             tipCenter /= legs.Length;
             bodyUp.Normalize();
 
+            // Interpolate postition from old to new
             bodyPos = tipCenter + bodyUp * bodyHeightBase;
             bodyTransform.position = Vector3.Lerp(bodyTransform.position, bodyPos, AdjustRatioPerTick);
 
+            // Calculate new body axis
             bodyRight = Vector3.Cross(bodyUp, bodyTransform.forward);
             bodyForward = Vector3.Cross(bodyRight, bodyUp);
 
+            // Interpolate rotation from old to new
             bodyRotation = Quaternion.LookRotation(bodyForward, bodyUp);
             bodyTransform.rotation = Quaternion.Slerp(bodyTransform.rotation, bodyRotation, AdjustRatioPerTick);
 

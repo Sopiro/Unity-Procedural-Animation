@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Leg : MonoBehaviour
 {
+    // Self-explanatory variable names
     private LegController legController;
 
     [SerializeField] private Transform bodyTransform;
@@ -49,6 +50,7 @@ public class Leg : MonoBehaviour
     {
         RaycastHit hit;
 
+        // Calculate the tip target position
         if (Physics.Raycast(rayOrigin.position, bodyTransform.up.normalized * -1, out hit, maxRayDist))
         {
             RaycastTipPos = hit.point;
@@ -65,6 +67,7 @@ public class Leg : MonoBehaviour
 
         TipDistance = (RaycastTipPos - TipPos).magnitude;
 
+        // If the distance gets too big, animate and move the tip to new position
         if (!Animating && (TipDistance > tipMoveDist && Movable))
         {
             StartCoroutine(AnimateLegMove());
@@ -84,15 +87,16 @@ public class Leg : MonoBehaviour
 
         Vector3 right = Vector3.Cross(bodyTransform.up, tipDirVec.normalized).normalized;
         TipUpDir = Vector3.Cross(tipDirVec.normalized, right);
-
+       
         while (timer < tipAnimationTime + tipAnimationFrameTime)
         {
             animTime = speedCurve.Evaluate(timer / tipAnimationTime);
 
+            // If the target is keep moving, apply acceleration to correct end point
             float tipAcceleration = Mathf.Max((RaycastTipPos - startingTipPos).magnitude / tipDirVec.magnitude, 1.0f);
 
-            TipPos = startingTipPos + tipDirVec * tipAcceleration * animTime; // Forward dir
-            TipPos += TipUpDir * heightCurve.Evaluate(animTime) * tipMaxHeight; // Upward dir
+            TipPos = startingTipPos + tipDirVec * tipAcceleration * animTime; // Forward direction of tip vector
+            TipPos += TipUpDir * heightCurve.Evaluate(animTime) * tipMaxHeight; // Upward direction of tip vector
 
             UpdateIKTargetTransform();
 
@@ -106,6 +110,7 @@ public class Leg : MonoBehaviour
 
     private void UpdateIKTargetTransform()
     {
+        // Do update leg ik target transform depend on tip information
         ikTarget.transform.position = TipPos + bodyTransform.up.normalized * ikOffset;
         ikTarget.transform.rotation = Quaternion.LookRotation(TipPos - ikTarget.transform.position) * Quaternion.Euler(90, 0, 0);
     }
