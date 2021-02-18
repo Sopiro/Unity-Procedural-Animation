@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     // Player movement script
 
-    private float MoveSpeed { get; } = 4.5f;
+    private float MoveSpeed { get; } = 4.0f;
     private float RotSpeed { get; } = 80.0f;
 
     void Update()
