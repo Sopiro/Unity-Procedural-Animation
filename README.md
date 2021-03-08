@@ -2,7 +2,8 @@
 
 Procedural IK Animation implemeted in Unity
 
-[Video](https://www.youtube.com/watch?v=pUp133rtDxM)
+[Video1](https://youtu.be/pUp133rtDxM)  
+[Video2](https://youtu.be/a3W1PT26aXU)
 
 ## Samples
 |style|image|
@@ -11,4 +12,4 @@ Procedural IK Animation implemeted in Unity
 |6 leged  | ![img5](.github/img5.gif)|
 |Dog(?)  | ![img3](.github/img3.gif)|
 |[Spot](https://en.wikipedia.org/wiki/Boston_Dynamics#Spot) | ![img4](.github/img4.gif)|
-|Obstacle environment| ![img6](.github/img6.gif)|
+|[Obstacle environment](https://youtu.be/a3W1PT26aXU)| ![img6](.github/img6.gif)|
