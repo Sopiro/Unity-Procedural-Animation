@@ -15,4 +15,4 @@ Video: https://youtu.be/pUp133rtDxM
 |6 leged  | ![img5](.github/img5.gif)|
 |Dog(?)  | ![img3](.github/img3.gif)|
 |or [Spot](https://en.wikipedia.org/wiki/Boston_Dynamics#Spot)! | ![img4](.github/img4.gif)|
-|[Obstacle environment](https://youtu.be/a3W1PT26aXU)| ![img6](.github/img6.gif)|
+|[Climbing](https://youtu.be/a3W1PT26aXU)| ![img6](.github/img6.gif)|
