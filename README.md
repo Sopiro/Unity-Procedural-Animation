@@ -1,15 +1,15 @@
-# Unity Procedural Animation
+# Procedural Animation in Unity
 
-[Procedural IK Animation](https://en.wikipedia.org/wiki/Procedural_animation) implemeted in Unity.
+[Procedural Animation](https://en.wikipedia.org/wiki/Procedural_animation) implemeted in Unity.
 
-[Normal animation](https://en.wikipedia.org/wiki/Skeletal_animation) uses a key frame animation clip, which contains the transforms of the joints in chronological order and these recorded animation clips are just 'played' on the bone model.  
-But unlike a normal one, this method uses [IK (Inverse Kinematics)](https://en.wikipedia.org/wiki/Inverse_kinematics) to procedurally position joints, so it automatically generates animation in real-time to allow for a more diverse series of actions and an interaction with terrain features.
+[Normal animation](https://en.wikipedia.org/wiki/Skeletal_animation) uses a key frame animation clip, which contains a transforms of joints in chronological order, and these prerecorded animation clips are just 'played' on a bone model.  
+But unlike a normal one, this method uses [IK (Inverse Kinematics)](https://en.wikipedia.org/wiki/Inverse_kinematics) to procedurally position joints, so it automatically generates animation in real-time to allow for a more diverse series of actions and an real-time interaction with environmental features.
 
 
-Video: https://youtu.be/pUp133rtDxM  
+Demo video: https://youtu.be/pUp133rtDxM  
 
 ## Samples
-|style|image|
+|Style|Image|
 |:--:|:--:|
 |4 leged  | ![img1](.github/img1.gif)|
 |6 leged  | ![img5](.github/img5.gif)|
