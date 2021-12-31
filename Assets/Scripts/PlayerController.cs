@@ -6,13 +6,13 @@ public class PlayerController : MonoBehaviour
 {
     // Player movement script
 
-    private float MoveSpeed { get; } = 4.0f;
-    private float RotSpeed { get; } = 80.0f;
+    private float MoveSpeed { get; } = 3.8f;
+    private float RotSpeed { get; } = 65.0f;
 
     void Update()
     {
-        // Apply keyboard control
-        // This loop will compete with AdjustBodyTransform() in LegController script
+        // Handle keyboard control
+        // This loop competes with AdjustBodyTransform() in LegController script to properly postion the body transform
 
         float ws = Input.GetAxis("Vertical") * MoveSpeed * Time.deltaTime;
         transform.Translate(0, 0, ws);

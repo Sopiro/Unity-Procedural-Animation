@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 3749833}
   - component: {fileID: 3749834}
   m_Layer: 0
-  m_Name: Rig
+  m_Name: Rig 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -260,7 +260,7 @@ GameObject:
   m_Component:
   - component: {fileID: 73184425}
   m_Layer: 0
-  m_Name: Leg 6
+  m_Name: Foot 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -695,7 +695,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 2.5, z: -3}
+  m_FollowOffset: {x: 0, y: 0.6785666, z: -1.667699}
   m_XDamping: 1
   m_YDamping: 0
   m_ZDamping: 0
@@ -759,7 +759,7 @@ GameObject:
   - component: {fileID: 142982994}
   - component: {fileID: 142982995}
   m_Layer: 0
-  m_Name: LegIK
+  m_Name: FootIK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1181,7 +1181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 282833206}
   m_Layer: 0
-  m_Name: Leg 5
+  m_Name: Foot 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1351,8 +1351,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 303403702}
-  m_LocalRotation: {x: 0.25602302, y: 0.57775456, z: -0.19736524, w: 0.7494657}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.13791089, y: 0.60120773, z: -0.106313914, w: 0.7798893}
+  m_LocalPosition: {x: 1.2884344, y: -1.8214334, z: 0.33906162}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 123295450}
@@ -1497,7 +1497,7 @@ GameObject:
   - component: {fileID: 397436795}
   - component: {fileID: 397436796}
   m_Layer: 0
-  m_Name: LegIK
+  m_Name: FootIK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1690,8 +1690,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 454565461}
-  m_LocalRotation: {x: 0.24238452, y: 0.58123994, z: -0.18685144, w: 0.753987}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.12373985, y: 0.6030375, z: -0.09538965, w: 0.78226286}
+  m_LocalPosition: {x: 1.2884344, y: -1.8214334, z: 0.33906162}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1622477383}
@@ -1786,7 +1786,7 @@ GameObject:
   - component: {fileID: 504951052}
   - component: {fileID: 504951053}
   m_Layer: 0
-  m_Name: LegIK
+  m_Name: FootIK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2050,7 +2050,7 @@ GameObject:
   m_Component:
   - component: {fileID: 531480098}
   m_Layer: 0
-  m_Name: Leg 4
+  m_Name: Foot 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2179,7 +2179,7 @@ GameObject:
   - component: {fileID: 571218900}
   - component: {fileID: 571218901}
   m_Layer: 0
-  m_Name: Legs
+  m_Name: Feet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2223,8 +2223,8 @@ MonoBehaviour:
   - {fileID: 770761765}
   - {fileID: 1138002495}
   - {fileID: 1439676808}
-  - {fileID: 973632699}
   - {fileID: 1624062712}
+  - {fileID: 973632699}
 --- !u!1 &589202928
 GameObject:
   m_ObjectHideFlags: 0
@@ -2343,7 +2343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 2.5, z: -3}
+  m_FollowOffset: {x: 0, y: 0.6785666, z: -1.667699}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -2407,7 +2407,7 @@ GameObject:
   - component: {fileID: 615927496}
   - component: {fileID: 615927497}
   m_Layer: 0
-  m_Name: LegIK
+  m_Name: FootIK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2639,7 +2639,7 @@ GameObject:
   m_Component:
   - component: {fileID: 726526023}
   m_Layer: 0
-  m_Name: Leg 2
+  m_Name: Foot 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2834,7 +2834,7 @@ GameObject:
   - component: {fileID: 770761766}
   - component: {fileID: 770761765}
   m_Layer: 0
-  m_Name: IK Leg 2
+  m_Name: IK Foot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3127,7 +3127,7 @@ GameObject:
   - component: {fileID: 820260315}
   - component: {fileID: 820260316}
   m_Layer: 0
-  m_Name: Rig
+  m_Name: Rig 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3172,7 +3172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 821804827}
   m_Layer: 0
-  m_Name: Leg 1
+  m_Name: Foot 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3425,7 +3425,7 @@ GameObject:
   - component: {fileID: 973632700}
   - component: {fileID: 973632699}
   m_Layer: 0
-  m_Name: IK Leg 6
+  m_Name: IK Foot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3719,7 +3719,7 @@ GameObject:
   - component: {fileID: 1034774503}
   - component: {fileID: 1034774504}
   m_Layer: 0
-  m_Name: Rig
+  m_Name: Rig 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3922,7 +3922,7 @@ GameObject:
   - component: {fileID: 1067418724}
   - component: {fileID: 1067418725}
   m_Layer: 0
-  m_Name: Rig
+  m_Name: Rig 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4046,7 +4046,7 @@ GameObject:
   - component: {fileID: 1138002496}
   - component: {fileID: 1138002495}
   m_Layer: 0
-  m_Name: IK Leg 3
+  m_Name: IK Foot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4561,7 +4561,7 @@ GameObject:
   - component: {fileID: 1255688870}
   - component: {fileID: 1255688871}
   m_Layer: 0
-  m_Name: LegIK
+  m_Name: FootIK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4961,7 +4961,7 @@ GameObject:
   - component: {fileID: 1439676809}
   - component: {fileID: 1439676808}
   m_Layer: 0
-  m_Name: IK Leg 4
+  m_Name: IK Foot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5354,8 +5354,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1481816564}
-  m_LocalRotation: {x: 0.25602305, y: 0.5777546, z: -0.19736522, w: 0.7494657}
-  m_LocalPosition: {x: -8.2608595, y: 8.694547, z: -2.1739101}
+  m_LocalRotation: {x: -0.043934915, y: -0.6760294, z: -0.04043852, w: 0.7344513}
+  m_LocalPosition: {x: 43.44, y: 5.93, z: -7.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5519,7 +5519,7 @@ GameObject:
   - component: {fileID: 1604498177}
   - component: {fileID: 1604498178}
   m_Layer: 0
-  m_Name: LegIK
+  m_Name: FootIK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5638,7 +5638,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 2.5, z: -3}
+  m_FollowOffset: {x: 0, y: 0.6785666, z: -1.667699}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -5705,7 +5705,7 @@ GameObject:
   - component: {fileID: 1624062713}
   - component: {fileID: 1624062712}
   m_Layer: 0
-  m_Name: IK Leg 5
+  m_Name: IK Foot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6300,7 +6300,7 @@ GameObject:
   - component: {fileID: 1744882171}
   - component: {fileID: 1744882170}
   m_Layer: 0
-  m_Name: Rig
+  m_Name: Rig 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7115,8 +7115,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1978056151}
-  m_LocalRotation: {x: 0.2696131, y: 0.574069, z: -0.20784163, w: 0.7446848}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.15207386, y: 0.59917444, z: -0.11723199, w: 0.7772517}
+  m_LocalPosition: {x: 1.2884344, y: -1.8214334, z: 0.33906162}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 615039492}
@@ -7178,7 +7178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2043368246}
   m_Layer: 0
-  m_Name: Leg 3
+  m_Name: Foot 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7293,7 +7293,7 @@ GameObject:
   - component: {fileID: 2054159683}
   - component: {fileID: 2054159684}
   m_Layer: 0
-  m_Name: Rig
+  m_Name: Rig 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7554,7 +7554,7 @@ GameObject:
   - component: {fileID: 919132148864482235}
   - component: {fileID: 919132148864482238}
   m_Layer: 0
-  m_Name: IK Leg 1
+  m_Name: IK Foot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
