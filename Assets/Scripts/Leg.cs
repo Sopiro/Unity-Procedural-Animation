@@ -21,7 +21,7 @@ public class Leg : MonoBehaviour
     private float ikOffset = 1.0f;
     private float tipMoveDist = 0.55f;
     private float maxRayDist = 7.0f;
-    private float tipPassOver = 0.2f;
+    private float tipPassOver = 0.55f / 2.0f;
 
     public Vector3 TipPos { get; private set; }
     public Vector3 TipUpDir { get; private set; }
@@ -90,7 +90,7 @@ public class Leg : MonoBehaviour
         {
             animTime = speedCurve.Evaluate(timer / tipAnimationTime);
 
-            // If the target is keep moving, apply acceleration to correct end point
+            // If the target is keep moving, apply acceleration to correct the end point
             float tipAcceleration = Mathf.Max((RaycastTipPos - startingTipPos).magnitude / tipDirVec.magnitude, 1.0f);
 
             TipPos = startingTipPos + tipDirVec * tipAcceleration * animTime; // Forward direction of tip vector
